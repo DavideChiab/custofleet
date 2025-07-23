@@ -37,7 +37,7 @@ public class VinExtractorService {
     public void process() {
         logger.info("Start VIN extraction for market: " + mercato + ", batch size: " + batchSize);
         Pageable limit = PageRequest.of(0, batchSize);
-        List<Taekt017> records = repository.findPendingByMarket(mercato, limit);
+        List<Taekt017> records = repository.findNeverSentByMercato(mercato, limit);
 
         for (Taekt017 record : records) {
             logger.info("VIN trovato: " + record.getCVin());

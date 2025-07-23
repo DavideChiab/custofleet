@@ -1,15 +1,24 @@
 plugins {
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
     id 'com.it.ibm.stellantis.oss-conventions'
     id 'com.it.ibm.stellantis.java-conventions'
     id 'com.it.ibm.stellantis.base-java-conventions'
     id 'maven-publish'
 }
 
+
 dependencies {
     // libreria condivisa
     implementation project(':custofleet-api-contract-lib')
 
 }
+
+springBoot {
+    mainClass = 'com.it.ibm.custofleet.CustofleetApplication'
+}
+
 
 task cleanLibs(type: Delete) {
     group = 'Custofleet customized task'

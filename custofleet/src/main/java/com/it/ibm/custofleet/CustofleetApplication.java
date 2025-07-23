@@ -14,7 +14,10 @@ public class CustofleetApplication {
     private static final Logger logger = Logger.getLogger(CustofleetApplication.class.getName());
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(CustofleetApplication.class, args);
+        SpringApplication app = new SpringApplication(CustofleetApplication.class);
+        app.setWebApplicationType(org.springframework.boot.WebApplicationType.NONE);
+        ConfigurableApplicationContext context = app.run(args);
+
         VinExtractorService service = context.getBean(VinExtractorService.class);
 
         logger.info("Avvio programma Custofleet");
@@ -25,5 +28,7 @@ public class CustofleetApplication {
             e.printStackTrace();
         }
         logger.info("Fine programma Custofleet");
+
+        context.close();
     }
 }

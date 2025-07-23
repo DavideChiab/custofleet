@@ -40,7 +40,7 @@ class OssConventionsPlugin implements Plugin<Project> {
             add("implementation", platform("org.springframework.boot:spring-boot-dependencies:2.7.18"))
             add("implementation", "org.springframework.boot:spring-boot-starter")
             add("implementation", "org.springframework.boot:spring-boot-starter-data-jpa")
-            add("implementation", "org.springframework.boot:spring-boot-starter-web")
+            add("implementation", "org.springframework.boot:spring-boot-starter-webflux")
         }
     }
 }
