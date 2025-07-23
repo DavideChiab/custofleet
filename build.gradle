@@ -1,34 +1,22 @@
 plugins {
-	id 'eclipse-wtp'
-	id 'com.it.ibm.stellantis.library-conventions'
-	id 'com.it.ibm.stellantis.oss-conventions'
-	id 'com.it.ibm.stellantis.java-conventions'
-	id 'maven-publish'
+    id 'eclipse-wtp'
+    id 'maven-publish'
 }
 
 ext.release = version
 version = ''
 
 allprojects {
-	apply plugin: 'eclipse'
-	apply plugin: 'eclipse-wtp'
-	apply plugin: 'maven-publish'
-	apply plugin: 'com.it.ibm.stellantis.library-conventions'
-	apply plugin: 'com.it.ibm.stellantis.oss-conventions'
-	apply plugin: 'com.it.ibm.stellantis.java-conventions'
-	version = ''
+    apply plugin: 'eclipse'
+    apply plugin: 'eclipse-wtp'
+    apply plugin: 'maven-publish'
+    version = ''
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
 }
+
 dependencies {
 
-}
-
-publishing {
-	publications {
-		maven(MavenPublication) {
-			groupId = 'com.it.ibm.stellantis'
-			artifactId = 'custofleet'
-			version = project.ext.release
-			artifact jar
-		}
-	}
 }

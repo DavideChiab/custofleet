@@ -1,4 +1,4 @@
-package com.it.ibm.custofleet.model;
+package com.it.ibm.custofleet.entity;
 
 import java.io.Serializable;
 

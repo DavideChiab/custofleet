@@ -1,21 +1,24 @@
 plugins {
     id 'com.it.ibm.stellantis.oss-conventions'
     id 'com.it.ibm.stellantis.java-conventions'
+    id 'com.it.ibm.stellantis.base-java-conventions'
+    id 'maven-publish'
 }
 
 dependencies {
-	//add-dep
+    // libreria condivisa
     implementation project(':custofleet-api-contract-lib')
+
 }
 
 task cleanLibs(type: Delete) {
-	group = 'Custofleet customized task'
+    group = 'Custofleet customized task'
     description = 'Clean libs directory'
     delete 'libs'
 }
 
 task copyDependencies(type: Copy, dependsOn: cleanLibs) {
-	group = 'Custofleet customized task'
+    group = 'Custofleet customized task'
     description = 'Copy required libs'
     from(configurations.runtimeClasspath)
     into('libs')

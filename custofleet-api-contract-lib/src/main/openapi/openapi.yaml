@@ -90,7 +90,7 @@ components:
           minLength: 14
         reference_date:
           description: Reference date in format YYYYMMDD
-          pattern: "\\d{8}"
+          pattern: "\\\\d{8}"
         vehicle_quantity:
           description: Number of vehicles in the request
           format: int32
