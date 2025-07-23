@@ -1,0 +1,38 @@
+# Ignore VisualStudio Code settings
+.vscode
+
+# Ignore Idea Code settings
+.idea
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+pom.xml
+.project
+.classpath
+.settings
+openapi.json
+.openapi-generator-ignore
+archetype.xml
+
+.openapi-generator/
+bin/
+custofleet/libs
+custofleet/logs
+custofleet/security/*.cer
+custofleet/security/*.csr
+custofleet/security/*.p12
+custofleet/security/*.key
+custofleet/security/passwords.txt
+custofleet-api-contract-lib/src/main/java

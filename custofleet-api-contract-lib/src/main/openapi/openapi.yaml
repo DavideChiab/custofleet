@@ -1,0 +1,273 @@
+openapi: 3.1.0
+info:
+  title: SC4 Invoice API
+  version: v1
+servers:
+- description: Generated server url
+  url: http://localhost:8080
+security:
+- bearerAuth: []
+- apiKey: []
+paths:
+  /v1/api/vehicle/invoice:
+    post:
+      operationId: getVehicalDetailsForInvoice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleInvoiceRequestDto'
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Unauthorized access
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Invalid request format
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Internal server error
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleInvoiceResponseDto'
+          description: Successfully processed vehicle invoice
+      summary: "Returns pricing related information for a given VIN or CAR, brand,\
+        \ and country. This data is used by various invoicing and accounting systems."
+      tags:
+      - automatic-invoicing-controller
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: automatic-invoicing-controller
+components:
+  schemas:
+    VehicleDto:
+      properties:
+        vin:
+          description: Vehicle Identification Number
+          maxLength: 17
+          minLength: 0
+        car:
+          description: Car model name
+          maxLength: 6
+          minLength: 0
+        brand:
+          description: Brand code
+          maxLength: 2
+          minLength: 0
+        country:
+          description: Country code
+          maxLength: 2
+          minLength: 0
+    VehicleInvoiceRequestDto:
+      example:
+        application_request: ""
+        vehicle_list: ""
+        request_timestamp: ""
+        vehicle_quantity: ""
+        response_type: ""
+        reference_date: ""
+        call_type: ""
+      properties:
+        application_request:
+          description: Application source identifier
+          maxLength: 20
+          minLength: 0
+        request_timestamp:
+          description: Timestamp of the request in format YYYYMMDDHHMMSS
+          maxLength: 14
+          minLength: 14
+        reference_date:
+          description: Reference date in format YYYYMMDD
+          pattern: "\\d{8}"
+        vehicle_quantity:
+          description: Number of vehicles in the request
+          format: int32
+        call_type:
+          description: "Call type: '1' for CAR/Brand/Country, '2' for VIN"
+          pattern: 1|2
+        response_type:
+          description: "Response type: 'SYNC' or 'ASYNC'"
+          pattern: SYNC|ASYNC
+        vehicle_list:
+          description: List of vehicles
+          items:
+            $ref: '#/components/schemas/VehicleDto'
+      required:
+      - application_request
+      - call_type
+      - reference_date
+      - response_type
+      - vehicle_quantity
+    ApiError:
+      properties:
+        timestamp:
+          format: date-time
+        status:
+          format: int32
+        message: {}
+    PersonalizationDto:
+      properties:
+        reference:
+          description: Reference code for personalization
+          maxLength: 15
+          minLength: 0
+        reference_description:
+          description: Descriptions of the reference in multiple languages
+          items:
+            $ref: '#/components/schemas/ReferenceDescriptionDto'
+        price_list:
+          description: List of prices for the personalization
+          items:
+            $ref: '#/components/schemas/PriceDto'
+        quantity:
+          description: Quantity of the personalization reference
+          format: int32
+      required:
+      - price_list
+      - quantity
+      - reference
+      - reference_description
+    PriceDto:
+      properties:
+        type:
+          description: "Price type: PPI, INDUSTRIAL, CENTRAL, DEALER"
+          maxLength: 20
+          minLength: 0
+        price:
+          description: Actual price value
+          format: double
+        catalog_price:
+          description: Catalog price value
+          format: double
+        margin_amount:
+          description: Margin amount
+          format: double
+        margin_rate:
+          description: Margin rate in percentage
+          format: double
+        currency:
+          description: Currency code
+          maxLength: 3
+          minLength: 0
+      required:
+      - currency
+      - price
+      - type
+    ReferenceDescriptionDto:
+      properties:
+        language:
+          description: Language code in format xx_YY
+          maxLength: 5
+          minLength: 0
+        label:
+          description: Label in the specified language
+          maxLength: 20
+          minLength: 0
+      required:
+      - label
+      - language
+    VehicleDetailsDto:
+      properties:
+        return_code:
+          description: "Return code: 0 for valid, 1 for unknown vehicle"
+          pattern: "[01]"
+        personalization_order:
+          description: Personalization order ID
+          maxLength: 8
+          minLength: 0
+        order_date:
+          description: Order date in format YYYYMMDD
+          maxLength: 8
+          minLength: 8
+        order_status:
+          description: "Order status: pending, completed, cancelled"
+          maxLength: 15
+          minLength: 0
+        order_status_date:
+          description: Order status timestamp in format YYYYMMDDHHmmss
+          maxLength: 14
+          minLength: 14
+        personalization_list:
+          description: List of personalizations for the vehicle
+          items:
+            $ref: '#/components/schemas/PersonalizationDto'
+        car:
+          description: Car model name
+          maxLength: 6
+          minLength: 0
+        brand:
+          description: Brand code
+          maxLength: 2
+          minLength: 0
+        country:
+          description: Country code
+          maxLength: 2
+          minLength: 0
+        vin:
+          description: Vehicle Identification Number
+          maxLength: 17
+          minLength: 0
+      required:
+      - order_date
+      - order_status
+      - order_status_date
+      - personalization_list
+      - personalization_order
+      - return_code
+    VehicleInvoiceResponseDto:
+      example:
+        application_request: ""
+        vehicle_list: ""
+        request_timestamp: ""
+        vehicle_quantity: ""
+        reference_date: ""
+        call_type: ""
+      properties:
+        application_request:
+          description: Application source identifier
+          maxLength: 8
+          minLength: 0
+        request_timestamp:
+          description: Request timestamp in format YYYYMMDDHHMMSS
+          maxLength: 14
+          minLength: 14
+        reference_date:
+          description: Reference date in format YYYYMMDD
+          maxLength: 8
+          minLength: 8
+        vehicle_quantity:
+          description: Number of vehicles in the response
+          format: int32
+        call_type:
+          description: Call type identifier
+        vehicle_list:
+          description: List of vehicles with personalization details
+          items:
+            $ref: '#/components/schemas/VehicleDetailsDto'
+      required:
+      - application_request
+      - call_type
+      - request_timestamp
+      - vehicle_list
+      - vehicle_quantity
+  securitySchemes:
+    apiKey:
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
