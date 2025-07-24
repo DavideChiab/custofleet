@@ -6,7 +6,6 @@ import org.gradle.api.tasks.compile.JavaCompile;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.jvm.toolchain.JavaLanguageVersion;
-import org.gradle.jvm.toolchain.JvmImplementation;
 
 class BaseJavaConventionsPlugin implements Plugin<Project> {
 
@@ -28,7 +27,6 @@ class BaseJavaConventionsPlugin implements Plugin<Project> {
         project.extensions.configure(JavaPluginExtension) { java ->
             java.toolchain {
                 languageVersion = JavaLanguageVersion.of(17)
-                implementation = JvmImplementation.J9
             }
         }
 

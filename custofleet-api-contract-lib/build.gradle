@@ -1,6 +1,7 @@
 plugins {
     id 'org.openapi.generator' version '6.6.0'
     id 'java-library'
+    id 'com.it.ibm.stellantis.base-java-conventions'
 }
 
 repositories {
