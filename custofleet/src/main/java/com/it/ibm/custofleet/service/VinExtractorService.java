@@ -1,7 +1,8 @@
 package com.it.ibm.custofleet.service;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +18,7 @@ import com.it.ibm.custofleet.repository.Taekt017Repository;
 @Service
 public class VinExtractorService {
 
-    private static final Logger logger = Logger.getLogger(VinExtractorService.class.getName());
+    private static final Logger logger = LogManager.getLogger(VinExtractorService.class);
 
     @Value("${custofleet.batch.size:100}")
     private int batchSize;

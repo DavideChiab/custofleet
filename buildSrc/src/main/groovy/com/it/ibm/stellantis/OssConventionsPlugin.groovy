@@ -28,6 +28,7 @@ class OssConventionsPlugin implements Plugin<Project> {
 
             add("implementation", "org.apache.logging.log4j:log4j-core:2.20.0")
             add("implementation", "org.apache.logging.log4j:log4j-api:2.20.0")
+            add("implementation", "org.apache.logging.log4j:log4j-jul:2.20.0")
 
             add("implementation", "org.postgresql:postgresql:42.6.0")
             add("implementation", "com.oracle.database.jdbc:ojdbc8:23.2.0.0")
@@ -38,9 +39,17 @@ class OssConventionsPlugin implements Plugin<Project> {
             add("implementation", "org.glassfish.jersey.core:jersey-client:3.0.10")
 
             add("implementation", platform("org.springframework.boot:spring-boot-dependencies:2.7.18"))
-            add("implementation", "org.springframework.boot:spring-boot-starter")
-            add("implementation", "org.springframework.boot:spring-boot-starter-data-jpa")
-            add("implementation", "org.springframework.boot:spring-boot-starter-webflux")
+            add("implementation", "org.springframework.boot:spring-boot-starter-log4j2")
+
+            add("implementation", "org.springframework.boot:spring-boot-starter") {
+                exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            }
+            add("implementation", "org.springframework.boot:spring-boot-starter-data-jpa") {
+                exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            }
+            add("implementation", "org.springframework.boot:spring-boot-starter-webflux") {
+                exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+            }
         }
     }
 }
