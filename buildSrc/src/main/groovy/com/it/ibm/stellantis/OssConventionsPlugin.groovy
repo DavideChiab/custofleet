@@ -37,8 +37,6 @@ class OssConventionsPlugin implements Plugin<Project> {
             add("implementation", "org.openapitools:jackson-databind-nullable:0.2.6")
 
 
-            add("implementation", "org.apache.logging.log4j:log4j-core:2.20.0")
-            add("implementation", "org.apache.logging.log4j:log4j-api:2.20.0")
 
             add("implementation", "com.oracle.database.jdbc:ojdbc8:23.2.0.0")
 

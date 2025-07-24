@@ -1,6 +1,7 @@
 package com.it.ibm.custofleet;
 
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import com.it.ibm.custofleet.service.VinExtractorService;
 @SpringBootApplication
 public class CustofleetApplication {
 
-    private static final Logger logger = Logger.getLogger(CustofleetApplication.class.getName());
+    private static final Logger logger = LogManager.getLogger(CustofleetApplication.class);
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(CustofleetApplication.class);
@@ -24,8 +25,7 @@ public class CustofleetApplication {
         try {
             service.process();
         } catch (Exception e) {
-            logger.severe("Errore in fase di estrazione VIN: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Errore in fase di estrazione VIN: " + e.getMessage(), e);
         }
         logger.info("Fine programma Custofleet");
 
